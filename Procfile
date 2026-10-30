@@ -1,0 +1,1 @@
+web: python manage.py migrate && python manage.py shell -c "import os; from django.contrib.auth import get_user_model; U=get_user_model(); U.objects.filter(username='adminsite').exists() or U.objects.create_superuser('adminsite','admin@example.com',os.environ['DJANGO_SUPERUSER_PASSWORD'])" && gunicorn core.wsgi:application

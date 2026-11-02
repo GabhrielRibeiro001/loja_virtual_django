@@ -22,9 +22,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 import os
 
+
 SECRET_KEY = os.environ.get(
     'SECRET_KEY',
-    'django-insecure-7-)g64f&0$^l5ipa7(&3s%blnz()!af()bd4@dio23^d&0pp+&'
+    'django-insecure-7-)g64f&0$^l5ipa7(&3s%blnz()!af()bd4@dio23^d&0pp+&l'
 )
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -54,6 +55,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
 ]
 
 ROOT_URLCONF = 'core.urls'
@@ -123,6 +125,7 @@ USE_TZ = True
 
 
 STATIC_URL = 'static/'
+
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 STATICFILES_DIRS = [BASE_DIR / 'static']

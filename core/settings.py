@@ -140,7 +140,60 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 STATICFILES_DIRS = [BASE_DIR / 'static']
 
-MEDIA_URL = 'media/'
+# Supabase Storage - imagens dos produtos
+
+SUPABASE_ENDPOINT = os.environ.get('AWS_S3_ENDPOINT_URL', '')
+
+SUPABASE_PROJECT_REF = (
+    SUPABASE_ENDPOINT
+    .split('//')[-1]
+    .split('.storage.supabase.co')[0]
+)
+
+SUPABASE_PUBLIC_DOMAIN = (
+    f'{SUPABASE_PROJECT_REF}.supabase.co'
+    if SUPABASE_ENDPOINT
+    else ''
+)
+
+if os.environ.get('AWS_ACCESS_KEY_ID') and os.environ.get('AWS_SECRET_ACCESS_KEY'):
+
+    STORAGES = {
+        'default': {
+            'BACKEND': 'storages.backends.s3.S3Storage',
+            'OPTIONS': {
+                'bucket_name': os.environ.get('AWS_STORAGE_BUCKET_NAME'),
+                'access_key': os.environ.get('AWS_ACCESS_KEY_ID'),
+                'secret_key': os.environ.get('AWS_SECRET_ACCESS_KEY'),
+                'endpoint_url': SUPABASE_ENDPOINT,
+                'region_name': os.environ.get('AWS_S3_REGION_NAME'),
+                'custom_domain': (
+                    f'{SUPABASE_PUBLIC_DOMAIN}/storage/v1/object/public/produtos'
+                ),
+                'url_protocol': 'https:',
+                'querystring_auth': False,
+                'addressing_style': 'path',
+                'signature_version': 's3v4',
+                'file_overwrite': False,
+            },
+        },
+        'staticfiles': {
+            'BACKEND': 'whitenoise.storage.CompressedManifestStaticFilesStorage',
+        },
+    }
+
+else:
+
+    STORAGES = {
+        'default': {
+            'BACKEND': 'django.core.files.storage.FileSystemStorage',
+        },
+        'staticfiles': {
+            'BACKEND': 'whitenoise.storage.CompressedManifestStaticFilesStorage',
+        },
+    }
+
+MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
 

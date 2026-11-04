@@ -210,8 +210,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 if not DEBUG:
     SECURE_SSL_REDIRECT = False
     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-    SESSION_COOKIE_SECURE = True
-    CSRF_COOKIE_SECURE = True
+    SESSION_COOKIE_SECURE = False
+    CSRF_COOKIE_SECURE = False
     SECURE_CONTENT_TYPE_NOSNIFF = True
     SECURE_REFERRER_POLICY = 'strict-origin-when-cross-origin'
     X_FRAME_OPTIONS = 'DENY'

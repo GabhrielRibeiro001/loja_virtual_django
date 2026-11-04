@@ -4,7 +4,7 @@
 {% block 'conteudo' %}
 
   <main class="container">
-    <a href="index.html" class="voltar">← Catálogo</a>
+    <a href="{% url 'home' %}" class="voltar">← Catálogo</a>
 
     <!--
       No Django: data-* recebem campos de `product`. Ex.:
